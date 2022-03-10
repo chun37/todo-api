@@ -5,6 +5,7 @@ name = "pypi"
 
 [packages]
 djangorestframework = "==3.13.1"
+pyyaml = "*"
 
 [dev-packages]
 black = "*"
