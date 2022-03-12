@@ -1,0 +1,7 @@
+[
+  {
+    "model": "user.user",
+    "pk": "773178620923215892",
+    "fields": { "is_superuser": true }
+  }
+]
