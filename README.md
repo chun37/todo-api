@@ -28,6 +28,12 @@ python -c 'from django.core.management.utils import get_random_secret_key; print
 
 5. Write the key to an .env file.
 
+6. Initialize database.
+
+```bash
+pipenv run python manage.py migrate
+```
+
 6. Run!!!!
 
 ```bash
