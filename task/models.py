@@ -12,3 +12,4 @@ class Task(models.Model):
         choices=TaskStatus.choices, default=TaskStatus.WORKING_ON, editable=False
     )
     updated_at = models.DateTimeField(auto_now=True, editable=False)
+    author = models.CharField(max_length=255)
