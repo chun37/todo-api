@@ -1,6 +1,8 @@
-from django.db import models
-from task.enums import TaskStatus
 import uuid
+
+from django.db import models
+
+from task.enums import TaskStatus
 
 # Create your models here.
 
