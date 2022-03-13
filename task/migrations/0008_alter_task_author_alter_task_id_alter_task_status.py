@@ -13,11 +13,6 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AlterField(
             model_name='task',
-            name='author',
-            field=models.CharField(max_length=255),
-        ),
-        migrations.AlterField(
-            model_name='task',
             name='id',
             field=models.UUIDField(default=uuid.uuid4, primary_key=True, serialize=False),
         ),
