@@ -1,12 +1,12 @@
 from typing import Optional
 
-from django.shortcuts import render
 from django.http.request import HttpRequest
-from rest_framework.generics import CreateAPIView
+from django.shortcuts import render
 from rest_framework.exceptions import NotAuthenticated, PermissionDenied
+from rest_framework.generics import CreateAPIView
 
-from user.serializers import CreateUserSerializer
 from user.models import User
+from user.serializers import CreateUserSerializer
 
 # Create your views here.
 
