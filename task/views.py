@@ -13,3 +13,7 @@ class TaskList(ListCreateAPIView):
     def get_queryset(self):
         status = self.request.GET.get("status", 0)
         return Task.objects.filter(status=status)
+
+    # def create(request, *args, **kwargs):
+    #     print(request)
+    #     return super().create(request, *args, **kwargs)
