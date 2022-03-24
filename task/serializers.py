@@ -8,3 +8,10 @@ class TaskListSerializer(serializers.ModelSerializer):
         model = Task
         fields = ("id", "content", "status", "updated_at")
         read_only_fields = ("id", "status", "updated_at")
+
+
+class TaskUpdateStatusSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Task
+        fields = ("id", "content", "status", "updated_at")
+        read_only_fields = ("id", "content", "updated_at")
