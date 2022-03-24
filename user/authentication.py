@@ -1,5 +1,7 @@
 from django.contrib.auth import get_user_model
 from rest_framework.authentication import TokenAuthentication
+from rest_framework.exceptions import AuthenticationFailed
+from django.utils.translation import gettext_lazy as _
 
 
 class CustomTokenAuthentication(TokenAuthentication):
@@ -8,6 +10,6 @@ class CustomTokenAuthentication(TokenAuthentication):
         try:
             user = model.objects.get(api_key=token)
         except model.DoesNotExist:
-            raise exceptions.AuthenticationFailed(_("Invalid API Key."))
+            raise AuthenticationFailed(_("Invalid API Key."))
 
         return (user, None)
