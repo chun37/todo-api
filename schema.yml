@@ -1,0 +1,223 @@
+openapi: 3.0.3
+info:
+  title: ToDo API
+  version: 1.0.0
+  description: 'グリーンランドの #やること のAPI'
+paths:
+  /tasks/:
+    get:
+      operationId: tasks_list
+      tags:
+      - tasks
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TaskList'
+          description: ''
+    post:
+      operationId: tasks_create
+      tags:
+      - tasks
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TaskList'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TaskList'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TaskList'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskList'
+          description: ''
+  /tasks/{id}/:
+    put:
+      operationId: tasks_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - tasks
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TaskUpdateStatus'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TaskUpdateStatus'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TaskUpdateStatus'
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskUpdateStatus'
+          description: ''
+    patch:
+      operationId: tasks_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - tasks
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedTaskUpdateStatus'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedTaskUpdateStatus'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedTaskUpdateStatus'
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskUpdateStatus'
+          description: ''
+  /users/:
+    post:
+      operationId: users_create
+      tags:
+      - users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUser'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CreateUser'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CreateUser'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateUser'
+          description: ''
+components:
+  schemas:
+    CreateUser:
+      type: object
+      properties:
+        id:
+          type: string
+          maxLength: 255
+        api_key:
+          type: string
+          readOnly: true
+        is_admin:
+          type: boolean
+          readOnly: true
+      required:
+      - api_key
+      - id
+      - is_admin
+    PatchedTaskUpdateStatus:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        content:
+          type: string
+          readOnly: true
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+    StatusEnum:
+      enum:
+      - 0
+      - 1
+      - 2
+      type: integer
+    TaskList:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        content:
+          type: string
+          maxLength: 4000
+        status:
+          allOf:
+          - $ref: '#/components/schemas/StatusEnum'
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - content
+      - id
+      - status
+      - updated_at
+    TaskUpdateStatus:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        content:
+          type: string
+          readOnly: true
+        status:
+          $ref: '#/components/schemas/StatusEnum'
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - content
+      - id
+      - updated_at
+  securitySchemes:
+    tokenAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Token-based authentication with required prefix "Token"

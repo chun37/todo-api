@@ -6,9 +6,11 @@ name = "pypi"
 [packages]
 djangorestframework = "==3.13.1"
 pyyaml = "*"
+drf-spectacular = "==0.22.0"
 
 [dev-packages]
 black = "*"
+requests = "*"
 
 [requires]
 python_version = "3.9"
